@@ -3,10 +3,13 @@ package com.caiopivetta6.domain;
 import java.io.Serializable;
 import java.util.Objects;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 
 @Entity
 public class Ristorant implements Serializable {
@@ -16,9 +19,11 @@ public class Ristorant implements Serializable {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int id;
+	private Integer id;
 	private String name;
 	
+	@OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "registerClients_id", referencedColumnName = "id")
 	private RegisterClients registerClients;
 
 	
@@ -27,20 +32,21 @@ public class Ristorant implements Serializable {
 	}
 
 
-	public Ristorant(int id, String name, RegisterClients registerClients) {
+	public Ristorant(Integer id, String name, RegisterClients registerClients) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.registerClients = registerClients;
 	}
 
+	
 
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -80,9 +86,10 @@ public class Ristorant implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Ristorant other = (Ristorant) obj;
-		return id == other.id;
+		return Objects.equals(id, other.id);
 	}
-	
+
+
 	
 	
 	

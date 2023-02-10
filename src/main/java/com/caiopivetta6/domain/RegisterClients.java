@@ -10,6 +10,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -21,26 +23,40 @@ public class RegisterClients implements Serializable {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int id;
+	private Integer id;
 	private Instant lastVisit;
 	
+	@OneToMany(mappedBy = "registerClients")
 	private List<Client> clients = new ArrayList<>();
+	
+	@OneToMany(mappedBy = "registerClients")
+	private List<Ristorant> ristorants;
 	
 	public RegisterClients() {
 		
 	}
 
-	public RegisterClients(int id, Instant lastVisit) {
+	public RegisterClients(Integer id, Instant lastVisit) {
 		super();
 		this.id = id;
 		this.lastVisit = lastVisit;
+	}
+
+	
+	
+	public List<Ristorant> getRistorants() {
+		return ristorants;
+	}
+
+	public void setRistorants(List<Ristorant> ristorants) {
+		this.ristorants = ristorants;
 	}
 
 	public int getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

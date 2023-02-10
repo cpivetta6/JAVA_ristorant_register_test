@@ -7,6 +7,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -18,18 +20,20 @@ public class Client implements Serializable{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int id;
+	private Integer id;
 	private String name;
 	private String email;
 	private String phone;
 	
-	
+	@ManyToOne
+	@JoinColumn (name = "register_tb")
+	private RegisterClients registerClients;
 	
 	public Client() {
 		
 	}
 
-	public Client(int id, String name, String email, String phone) {
+	public Client(Integer id, String name, String email, String phone) {
 		super();
 		this.id = id;
 		this.name = name;
